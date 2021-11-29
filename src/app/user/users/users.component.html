@@ -1,0 +1,28 @@
+<div class="container" *ngIf="users?.length">
+    <app-search></app-search>
+    <h3>List of Available users</h3>
+    <div class="row">
+        <div class="col-md-6">
+            <table class="table table-hover table-bordered">
+
+                <tbody>
+                    <tr *ngFor="let user of users" [ngStyle]="{cursor:'pointer'}" [ngClass]="{'activeColor': user.id === displayData.id  }" (click)=showData(user) >
+
+                        <td >{{user.id}} -
+                                {{user.name}}
+                        </td>
+
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-6">
+            <app-user-detail [userDetail]="displayData"></app-user-detail>
+        </div>
+    </div>
+</div>
+
+<div class="container errorMessage" *ngIf="!users?.length">
+    <h3>List of users are not Available</h3>
+</div>

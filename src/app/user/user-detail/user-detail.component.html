@@ -1,0 +1,14 @@
+<div *ngIf="(userDetail | json) != '{}'">
+    <h3>User Address Details</h3>
+    <div class="styleTag">
+        <label> Selected User Details :<a [routerLink]="['/user',userDetail.id,'posts',{userDetails:userDetail.name}]" > {{userDetail.name}}</a></label>
+        <div>  <label> ID:</label>{{userDetail.id}} </div>
+        
+        <div> <label> Street:</label>
+            {{userDetail.street}}
+        </div>
+        <div> <label> City:</label>{{userDetail.city}} </div>
+        <div>  <label> Zipcode:</label>{{userDetail.zipcode}} </div>
+        
+    </div>
+</div>

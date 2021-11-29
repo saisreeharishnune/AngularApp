@@ -1,0 +1,14 @@
+.displayStyle{
+    display: flex;
+    flex-direction: column;
+}
+
+.errorMessage{
+    display: flex;
+    
+    justify-content: center;
+}
+
+.activeColor{
+    background-color: #ddd;
+}

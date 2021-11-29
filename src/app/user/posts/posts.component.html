@@ -1,0 +1,6 @@
+<h2>Name : {{userName}}</h2> <button class="btn btn-primary" [routerLink] = "['/home']">Back</button>
+<div class="panel panel-default" *ngFor="let post of userPosts">
+    <div class="panel-heading">{{post.title}}</div>
+    <div class="panel-body">{{post.body}}</div>
+    <!-- <div class="panel-footer">Panel Footer</div> -->
+  </div>
