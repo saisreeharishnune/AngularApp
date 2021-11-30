@@ -1,6 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators,AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
+
+
+function minLengthValidator(c:AbstractControl){
+  if(c.value !="" && c.value.length <3){
+    return {minLengthValidator:true}
+  }
+  return null;
+}
 
 @Component({
   selector: 'app-login',
@@ -10,8 +18,8 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
 
   loginForm:FormGroup = this.fb.group({
-    userName:[''],
-    password:['']
+    userName:['',[Validators.required,minLengthValidator]],
+    password:['',[Validators.required]]
   });
   constructor(private fb:FormBuilder,private router:Router) { }
 
@@ -19,9 +27,18 @@ export class LoginComponent implements OnInit {
   }
 
   login(){
-    console.log(this.loginForm.value);
-    
-    this.router.navigateByUrl('/welcome');
+    console.log(this.loginForm);
+   //if(this.checkValidity()){
+      this.router.navigateByUrl('/welcome');
+    //}
+   
   }
+
+
+
+  
+  get form(): { [key: string]: AbstractControl; }{
+    return this.loginForm.controls;
+}
 
 }

@@ -1,20 +1,35 @@
-
 <h3 [ngStyle]="{'display': 'flex','justify-content': 'center','margin-bottom': '50px'}">User Login Form</h3>
-<form (ngSubmit) = "login()" [formGroup]= "loginForm">
-  
+<form (ngSubmit)="login()" [formGroup]="loginForm">
+
   <div class="form-row centerAlignment">
     <div class="form-group col-md-3">
       <label for="inputEmail4">User Name</label>
-      <input type="text" class="form-control" id="firstName" formControlName="userName" placeholder="Enter user name">
+      <input type="text" class="form-control" id="userName" formControlName="userName" placeholder="Enter user name">
+      <span class="invalid-feedback is-invalid"
+        *ngIf="(form['userName'].touched || form['userName'].dirty) && !form['userName'].valid">
+        <span *ngIf="form['userName'].errors?.['required']" [ngStyle]="{'color':'red'}">
+          User Name is required.
+        </span></span>
+        <span class="invalid-feedback is-invalid"
+        *ngIf="(form['userName'].touched || form['userName'].dirty) && !form['userName'].valid">
+        <span *ngIf="form['userName'].errors?.['minLengthValidator']" [ngStyle]="{'color':'red'}">
+          User Name min should be 3.
+        </span></span>
     </div>
-    </div>
-    <div class="form-row centerAlignment">
+  </div>
+  <div class="form-row centerAlignment">
     <div class="form-group col-md-3">
       <label for="inputPassword4">Password</label>
-      <input type="password" class="form-control" id="lastName" formControlName="password" placeholder="Enter Password">
+      <input type="password" class="form-control" id="password" formControlName="password" placeholder="Enter Password">
+      <span class="invalid-feedback"
+        *ngIf="(form['password'].touched || form['password'].dirty) && !form['password'].valid">
+        <span *ngIf="form['password'].errors?.['required']" [ngStyle]="{'color':'red'}">
+          Password is required.
+        </span></span>
     </div>
-    </div>
-    <div class="form-row centerAlignment">
-    <button type="submit" class="btn btn-primary">Login</button>
-    </div>
+  </div>
+  <div class="form-row centerAlignment">
+    <button type="submit" class="btn btn-primary" [title]="loginForm.valid ? 'press enter':'Enter valid credentials'"
+      [disabled]=!loginForm.valid>Login</button>
+  </div>
 </form>

@@ -1,6 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder,FormGroup} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { APIService } from '../api.service';
+
+function emptyCheckValidator(c:AbstractControl){
+  if(c.value.length == ''){
+    return {emptyCheckValidator:true}
+  }
+  return null;
+}
+
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
@@ -10,10 +18,18 @@ export class SignupComponent implements OnInit {
   constructor(private fb:FormBuilder,private api:APIService) { 
     
   }
+
+  get form(){
+    return this.signUpForm.controls;
+  }
+ 
+
   signUpForm = this.fb.group({
-    firstName: [''],
-    lastName:[''],
-    email:[''],
+    firstName: ['',[emptyCheckValidator]],
+    lastName:['',[emptyCheckValidator]],
+    emailGroup:this.fb.group(
+      {email:['',[Validators.required,Validators.email]],
+      confirmEmail:['',[Validators.required,Validators.email]]}),
     password:[''],
     address:this.fb.group({
       address1:[''],
@@ -37,13 +53,15 @@ export class SignupComponent implements OnInit {
     
     this.countries=x.countries;
     this.signUpForm = this.fb.group({
-      firstName: [''],
-      lastName:[''],
-      email:[''],
+      firstName: ['',[emptyCheckValidator]],
+      lastName:['',[emptyCheckValidator]],
+      emailGroup:this.fb.group(
+      {email:['',[Validators.required,Validators.email]],
+      confirmEmail:['',[Validators.required,Validators.email]]}),
       password:[''],
       address:this.fb.group({
-        address1:[''],
-        address2:[''],
+        address1:['',[emptyCheckValidator]],
+        address2:['',[emptyCheckValidator]],
         state:[],
         country:[this.countries],
         district:[''],
@@ -58,10 +76,17 @@ export class SignupComponent implements OnInit {
   onChanges(){
     this.signUpForm.valueChanges.subscribe(x=>console.log(x));
   }
+
+   
+  emaildGroupControls = this.signUpForm.controls['emailGroup'];
+  get emailGroupForm(){
+    return this.emaildGroupControls;
+  }
   
   save(){
-
+    console.log(this.emailGroupForm);
     console.log(this.signUpForm.value);
+    console.log(this.signUpForm.controls);
   }
   onCountryChange(){
     this.states = this.countries.filter((x:any)=>x.countryName==this.signUpForm.value.address.country)[0]["states"];

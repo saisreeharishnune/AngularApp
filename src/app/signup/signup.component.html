@@ -5,30 +5,67 @@
   <div class="form-row centerAlignment">
     
     <div class="form-group col-md-3">
-      <label for="inputEmail4">FirstName</label>
+      <label for="inputEmail4">First Name</label>
       <input type="text" class="form-control" id="firstName" formControlName="firstName" placeholder="FirstName">
+      <span class="invalid-feedback is-invalid"
+      *ngIf="(form['firstName'].touched || form['firstName'].dirty) && !form['firstName'].valid">
+      <span *ngIf="form['firstName'].errors?.['emptyCheckValidator']" [ngStyle]="{'color':'red'}">
+        First Name shouldn't be empty.
+      </span></span>
     </div>
     <div class="form-group col-md-3">
       <label for="inputPassword4">LastName</label>
       <input type="text" class="form-control" id="lastName" formControlName="lastName" placeholder="LastName">
+      <span class="invalid-feedback is-invalid"
+      *ngIf="(form['lastName'].touched || form['lastName'].dirty) && !form['lastName'].valid">
+      <span *ngIf="form['lastName'].errors?.['emptyCheckValidator']" [ngStyle]="{'color':'red'}">
+        Last Name shouldn't be empty.
+      </span></span>
     </div>
   </div>
-    <div class="form-row centerAlignment">
+    <div class="form-row centerAlignment" formGroupName="emailGroup">
+      
       <div class="form-group col-md-3">
         <label for="inputEmail4">Email</label>
         <input type="email" class="form-control" id="inputEmail4" formControlName="email" placeholder="Email">
+        <!-- <span class="invalid-feedback is-invalid"
+        *ngIf="(signUpForm.get('emailGroup.email').touched ||signUpForm.get('emailGroup.email').dirty) && signUpForm.get('emailGroup.email').valid">
+        <span *ngIf="signUpForm.get('emailGroup.email').errors.['required']" [ngStyle]="{'color':'red'}">
+          Email Id is required
+        </span></span>
+        <span class="invalid-feedback is-invalid"
+        *ngIf="(signUpForm.get('emailGroup.email').touched || signUpForm.get('emailGroup.email').dirty) && !signUpForm.get('emailGroup.email').valid">
+        <span *ngIf="signUpForm.get('emailGroup.email').errors?.['email']" [ngStyle]="{'color':'red'}">
+          Email Id should be in the Format a@b.gmail.com
+        </span></span>  -->
       </div>
       <div class="form-group col-md-3">
-        <label for="inputPassword4">Password</label>
-        <input type="password" class="form-control" id="inputPassword4" formControlName="password" placeholder="Password">
+        <label for="inputEmail4">Confirm Email</label>
+        <input type="email" class="form-control" id="inputEmail4" formControlName="confirmEmail" placeholder="confirm Email">
+        <!-- <span class="invalid-feedback is-invalid"
+        *ngIf="(signUpForm.get('emailGroup.confirmEmail').touched || signUpForm.get('emailGroup.confirmEmail').dirty) && !signUpForm.get('emailGroup.confirmEmail').valid">
+        <span *ngIf="signUpForm.get('emailGroup.confirmEmail').errors?.['required']" [ngStyle]="{'color':'red'}">
+          confirmEmail Id is required
+        </span></span> -->
+        <!-- <span class="invalid-feedback is-invalid"
+        *ngIf="(form['confirmEmail'].touched || form['confirmEmail'].dirty) && !form['confirmEmail'].valid">
+        <span *ngIf="form['confirmEmail'].errors?.['email']" [ngStyle]="{'color':'red'}">
+          Email Id should be in the Format a@b.gmail.com
+        </span></span> -->
       </div>
+      </div>
+      
     </div>
-    </div>
-    <div formGroupName="address">
+    <!-- <div formGroupName="address">
       <div class="form-row centerAlignment">
     <div class="form-group col-md-3">
       <label for="inputAddress">Address</label>
       <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St" formControlName="address1">
+      <span class="invalid-feedback is-invalid"
+      *ngIf="(signUpForm.get('address.address1').touched || signUpForm.get('address.address1').dirty) && !fsignUpForm.get('address.address1').valid">
+      <span *ngIf="signUpForm.get('address.address1').errors?.['emptyCheckValidator']" [ngStyle]="{'color':'red'}">
+        Last Name shouldn't be empty.
+      </span></span>
     </div>
     <div class="form-group col-md-3">
       <label for="inputAddress2">Address 2</label>
@@ -65,7 +102,7 @@
         <input type="text" class="form-control" id="inputZip" formControlName="zipcode">
       </div>
     </div>
-    </div>
+    </div> -->
     <div class="form-row centerAlignment">
     <!-- <div class="form-group">
       <div class="form-check">
@@ -75,6 +112,11 @@
         </label>
       </div>
     </div> -->
-    <button type="submit" class="btn btn-primary">Sign up</button>
+    <div class="form-group col-md-3">
+      <label for="inputPassword4">Password</label>
+      <input type="password" class="form-control" id="inputPassword4" formControlName="password" placeholder="Password">
+    </div>
+    <div>
+    <button type="submit" class="btn btn-primary" [disabled]="!signUpForm.valid">Sign up</button></div>
     </div>
   </form>
